@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cobalt Krakens: The Lost Pearl</title>
+<style>
+:root{--navy:#061b3b;--deep:#082b55;--blue:#0759a8;--cobalt:#1268d5;--aqua:#45e0ed;--ice:#dffaff;--gold:#ffd66b;--ink:#08264a;--muted:#54718f;--paper:#f3fbff;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Trebuchet MS,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 20% 10%,#1a79b9 0,#0a477e 28%,#06264d 68%,#03152e 100%);min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+.shell{max-width:1040px;margin:0 auto;padding:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#dffaff;padding:8px 2px 16px}
+.brand{font-weight:900;letter-spacing:2px;font-size:.9rem}.brand span{color:var(--aqua)}
+.pill{border:1px solid #8deeff66;border-radius:99px;padding:7px 12px;font-size:.78rem;background:#ffffff12}
+.hero{position:relative;overflow:hidden;border:1px solid #7deeff88;border-radius:26px;padding:clamp(22px,5vw,54px);background:linear-gradient(135deg,#0c4380ee,#071d43f5 70%);box-shadow:0 20px 55px #00152d99;color:white}
+.hero:before,.hero:after{content:"";position:absolute;border:2px solid #54ddeb30;border-radius:50%;width:310px;height:310px;right:-95px;top:-130px}
+.hero:after{width:220px;height:220px;right:30px;top:-95px}
+.kicker{color:var(--aqua);font-weight:900;letter-spacing:3px;text-transform:uppercase;font-size:.76rem}
+h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:.98;margin:12px 0;color:white;text-shadow:0 5px 0 #042452}
+h1 em{font-style:normal;color:var(--aqua)}
+.lead{font-size:1.12rem;line-height:1.6;max-width:670px;color:#e2f7ff}
+.kraken{font-size:clamp(5rem,12vw,9rem);position:absolute;right:5%;bottom:8%;filter:drop-shadow(0 8px 12px #00152d88);opacity:.95}
+.panel{background:var(--paper);border-radius:22px;padding:clamp(18px,4vw,32px);margin-top:18px;box-shadow:0 14px 35px #00152d66}
+h2{margin:0 0 12px;font-size:1.65rem;color:#07366a}
+h3{margin:0 0 8px;color:#07366a}
+p{line-height:1.55}
+.field{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}
+input[type=text]{padding:13px 14px;border:2px solid #b6d6e8;border-radius:12px;min-width:220px;max-width:100%;background:white;color:var(--ink)}
+.btn{border:0;border-radius:12px;padding:13px 19px;font-weight:900;background:linear-gradient(135deg,#1c80e8,#0753a6);color:white;box-shadow:0 4px 0 #063b78;transition:transform .12s}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.secondary{background:#e3f5ff;color:#0753a6;box-shadow:0 3px 0 #b6d9ec}
+.btn.gold{background:linear-gradient(135deg,#ffe58c,#ffbd42);color:#4b3100;box-shadow:0 4px 0 #bf8625}
+.small{font-size:.88rem;color:var(--muted)}
+.hidden{display:none!important}
+.maphead{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap}
+.progress-wrap{background:#d9edf7;height:12px;border-radius:99px;overflow:hidden;min-width:160px;flex:1;max-width:320px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#0873d1,#42dce9);transition:width .3s}
+.mapgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+.station{border:2px solid #c3dfef;border-radius:18px;padding:18px;background:white;text-align:left;display:flex;gap:14px;align-items:center;min-height:116px;color:var(--ink);transition:.15s}
+.station:hover:not(:disabled){transform:translateY(-3px);border-color:#36b9d7;box-shadow:0 8px 18px #0c53851a}
+.station:disabled{opacity:.55;cursor:not-allowed;background:#eaf3f8}
+.station .symbol{font-size:2.5rem}.station strong{display:block;font-size:1.02rem}.station small{color:var(--muted);display:block;margin-top:5px}
+.status{margin-left:auto;font-size:1.3rem}
+.story{background:linear-gradient(135deg,#e6f7ff,#f8fdff);border-left:5px solid #1497d2;padding:16px 18px;border-radius:12px;line-height:1.7;margin:15px 0}
+.qcard{border:1px solid #c8e1ef;border-radius:15px;padding:16px;margin:14px 0;background:white}
+.qnum{font-size:.76rem;font-weight:900;letter-spacing:1px;color:#1382bc;text-transform:uppercase}
+.question{font-weight:900;font-size:1.05rem;line-height:1.45;margin:8px 0 12px}
+.options{display:grid;gap:9px}
+.option{border:2px solid #d2e5ef;border-radius:12px;padding:11px 13px;text-align:left;background:#fbfeff;color:var(--ink);line-height:1.4}
+.option:hover{border-color:#45b9dc;background:#effbff}
+.option.selected{border-color:#1686cb;background:#e8f7ff}
+.option.correct{border-color:#23945c;background:#e9fff2}
+.option.wrong{border-color:#d66b65;background:#fff0ef}
+.feedback{font-weight:800;margin-top:10px;min-height:22px}
+.feedback.good{color:#167847}.feedback.bad{color:#a33b35}
+.hint{background:#fff8df;border:1px solid #f0d58b;border-radius:10px;padding:11px 13px;margin-top:10px;color:#644b0a}
+.stationfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.codeboxes{display:flex;gap:9px;justify-content:center;margin:22px 0}
+.digit{width:52px;height:62px;border:2px solid #9cc9df;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:1.8rem;font-weight:900;color:#0753a6}
+.success{background:#e8fff1;border:2px solid #7bc99b;border-radius:14px;padding:14px;color:#145c35;font-weight:800;margin-top:15px}
+.footer{text-align:center;color:#c9efff;font-size:.78rem;padding:18px}
+.bubble{color:#65e7f2}
+@media(max-width:620px){.kraken{position:static;display:block;text-align:right;font-size:4rem;margin-top:-18px}.mapgrid{grid-template-columns:1fr}.topbar{align-items:flex-start}.station{min-height:90px}.shell{padding:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar"><div class="brand">🐙 <span>COBALT KRAKENS</span> • ELA QUEST</div><div class="pill">GRADE 5 • 5.R.2.A.a</div></div>
+
+  <section id="welcome" class="hero">
+    <div class="kicker">An underwater character-analysis adventure</div>
+    <h1>THE LOST <em>PEARL</em></h1>
+    <p class="lead">The Pearl of Knowledge has vanished, and the Cobalt Kingdom is in danger! The Cobalt Kraken needs a clever reader to solve four challenges, uncover a secret code, and save the underwater kingdom.</p>
+    <div class="kraken" aria-hidden="true">🐙</div>
+    <div class="field">
+      <label for="studentName"><strong>Enter your name, Kraken:</strong></label>
+      <input id="studentName" type="text" maxlength="32" placeholder="Your first name">
+      <button class="btn gold" id="startBtn">DIVE IN →</button>
+    </div>
+    <p class="small" style="color:#c5eaff">Work on your own. Read carefully, use the hints if you need them, and try again when an answer is incorrect.</p>
+  </section>
+
+  <section id="map" class="panel hidden">
+    <div class="maphead">
+      <div><div class="kicker">Mission control</div><h2 id="welcomeName">Welcome, Kraken!</h2><p class="small">Complete each challenge to collect its secret digit. You can revisit completed stations.</p></div>
+      <div style="min-width:190px"><div class="small" style="margin-bottom:7px">YOUR QUEST PROGRESS</div><div class="progress-wrap"><div id="progress" class="progress"></div></div><div id="progressText" class="small" style="margin-top:6px">0 of 4 challenges complete</div></div>
+    </div>
+    <div class="mapgrid" id="stationGrid"></div>
+    <div class="story" style="margin-top:20px"><strong>Kraken's tip:</strong> Comparing characters means looking at both what is alike <em>and</em> what is different. Use details from the passages to support your thinking.</div>
+  </section>
+
+  <section id="challenge" class="panel hidden">
+    <div class="maphead"><div><div class="kicker" id="stationKicker">Challenge 1</div><h2 id="stationTitle"></h2><p class="small" id="stationSkill"></p></div><div class="pill" id="stationCount">1 OF 4</div></div>
+    <div class="story" id="passage"></div>
+    <div id="questions"></div>
+    <div class="stationfoot">
+      <button class="btn secondary" id="backMap">← Back to map</button>
+      <div id="stationResult" class="small" aria-live="polite"></div>
+      <button class="btn" id="finishStation" disabled>Complete challenge →</button>
+    </div>
+    <div id="unlockMessage" class="success hidden"></div>
+  </section>
+
+  <section id="final" class="hero hidden">
+    <div class="kicker">The final test</div>
+    <h1>THE TREASURE <em>CHAMBER</em></h1>
+    <p class="lead">You have explored the kingdom and collected all four digits. Enter them in the order you earned them to unlock the Pearl of Knowledge!</p>
+    <div class="codeboxes" id="codeBoxes"><div class="digit">?</div><div class="digit">?</div><div class="digit">?</div><div class="digit">?</div></div>
+    <div class="field" style="justify-content:center">
+      <input id="finalCode" type="text" inputmode="numeric" maxlength="4" placeholder="4-digit code" style="width:150px;min-width:150px;text-align:center;font-size:1.3rem;letter-spacing:5px">
+      <button class="btn gold" id="unlockBtn">UNLOCK THE PEARL</button>
+    </div>
+    <div id="finalFeedback" class="feedback" style="text-align:center;color:#fff" aria-live="polite"></div>
+    <div id="victory" class="hidden" style="text-align:center;margin-top:20px">
+      <div style="font-size:5rem">🏆💎🐙</div>
+      <h2 style="color:#8df4ff;font-size:2rem">YOU SAVED THE COBALT KINGDOM!</h2>
+      <p class="lead" style="margin:auto">Excellent work, <span id="winnerName"></span>! You analyzed character roles, relationships, conflicts, and changes. You are an official Cobalt Kraken Character Expert!</p>
+      <button class="btn gold" id="certificateBtn" style="margin-top:14px">SHOW MY COMPLETION CERTIFICATE</button>
+      <div id="certificate" class="hidden" style="background:#f4fcff;color:#07366a;border:5px double #43b8dc;border-radius:15px;padding:22px;margin:18px auto;max-width:560px">
+        <div style="font-size:2.5rem">🐙 💎 🐙</div><h2 style="color:#0753a6">COBALT KRAKEN CERTIFICATE</h2>
+        <p>This certifies that</p><h2 id="certName" style="font-size:2rem"></h2><p>successfully completed <strong>The Lost Pearl</strong> and demonstrated character-analysis skills!</p><p>5.R.2.A.a • Character Roles • Relationships • Conflicts • Inferences</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px"><button class="btn secondary" id="finalMap">← Return to map</button></div>
+  </section>
+  <div class="footer">🌊 THINK DEEPLY • FIND THE EVIDENCE • SAVE THE PEARL 🌊</div>
+</div>
+<script>
+const stations = [
+{
+ title:"The Protagonist's Passage", symbol:"🗺️", skill:"Character roles and functions in a plot",
+ passage:"<strong>The Missing Moonstone</strong><br>Mira had always dreamed of exploring the deepest part of the ocean. One afternoon, she discovered an ancient map tucked inside a sunken ship. The map showed the location of the Moonstone, a magical gem that protected the underwater kingdom. Mira immediately decided to find it. Her friend Bram, a cautious young sea turtle, warned her that the journey would be dangerous. He offered to help her navigate the underwater caves, even though he was afraid of the dark. Together, they traveled through the ocean, dodging dangerous currents and solving riddles. When they finally reached the Moonstone's hiding place, Mira discovered that the entrance was blocked by a massive boulder. Bram remembered a passage he had seen on the map and helped Mira find another way inside.",
+ questions:[
+  {q:"Which character most directly drives the main action of the plot?",opts:["Bram, because he is cautious","Mira, because she decides to search for the Moonstone","The Moonstone, because it protects the kingdom","The sea creatures, because they live underwater"],a:1,why:"Mira discovers the map and chooses to begin the quest. Her goal sets the main events in motion.",hint:"Look for the character who makes the decision that starts the adventure."},
+  {q:"What is Bram's most important function in the story?",opts:["He creates the danger Mira must face","He tries to stop Mira from completing her goal","He supports Mira with knowledge and help","He takes the Moonstone for himself"],a:2,why:"Bram helps Mira navigate and remembers another way into the hiding place. He is a supporting character whose actions help the protagonist.",hint:"Think about how Bram helps Mira when she faces obstacles."},
+  {q:"Which statement BEST compares Mira's and Bram's roles?",opts:["They have exactly the same role because they travel together","Mira drives the quest, while Bram supports her with useful knowledge and assistance","Bram is the antagonist because he is afraid","Mira is a supporting character because Bram knows the map"],a:1,why:"Mira's goal drives the plot, while Bram contributes important help that allows the quest to continue.",hint:"Ask yourself: Who starts the main goal, and who helps that character succeed?",digit:"2"}
+ ]
+},
+{
+ title:"The Relationship Reef",symbol:"🪸",skill:"Relationships and how they influence the plot",
+ passage:"<strong>The Coral Crown</strong><br>Princess Neris and her cousin Talia had always been close. They spent their childhood exploring the coral gardens and dreaming of protecting their kingdom. When the kingdom's Coral Crown disappeared, Neris immediately accused Talia of taking it. Talia had been the last person seen near the royal treasure room. 'I didn't take it!' Talia insisted. 'I was trying to protect it!' Neris refused to believe her. She ordered the guards to search Talia's home. Hurt by her cousin's distrust, Talia stopped helping with the investigation and disappeared into the outer reef. Later, Neris discovered that Talia had hidden the crown to protect it from a group of treasure hunters. Neris realized that her quick judgment had damaged the relationship she valued most.",
+ questions:[
+  {q:"What detail BEST shows that Neris and Talia had a close relationship before the crown disappeared?",opts:["They both wanted to protect the kingdom","They spent their childhood exploring and dreaming together","Talia was near the treasure room","Neris ordered the guards to search"],a:1,why:"Their shared childhood activities show a long-standing bond.",hint:"Find the detail that describes what they did together before the problem began."},
+  {q:"How does Neris's accusation affect Talia?",opts:["Talia becomes more eager to help","Talia decides to become queen","Talia feels hurt and stops helping with the investigation","Talia immediately finds the treasure hunters"],a:2,why:"Talia feels hurt by Neris's distrust, so she withdraws from the investigation.",hint:"Look at what Talia does after Neris refuses to believe her."},
+  {q:"What is the MOST important way their relationship affects the plot?",opts:["Their close bond makes the misunderstanding painful and drives the conflict forward","Their relationship causes them to compete for the throne","Their relationship has no impact on the events","Their relationship causes the treasure hunters to steal the crown"],a:0,why:"Because they care about each other, the accusation damages an important bond and moves the conflict forward.",hint:"Think about why this misunderstanding matters more because they are family and close friends.",digit:"3"}
+ ]
+},
+{
+ title:"The Conflict Current",symbol:"🌊",skill:"Comparing internal and external conflicts",
+ passage:"<strong>Two Underwater Challenges</strong><br><strong>Story A: The Reluctant Hero</strong><br>Kai was the strongest young merman in the kingdom, but he was terrified of deep water. When an earthquake damaged the underwater bridge, Kai knew he was the only one strong enough to move the fallen rocks. He wanted to help, but his fear kept him from diving into the dark trench.<br><br><strong>Story B: The Unwelcome Inventor</strong><br>Luna had invented a machine that could clear dangerous underwater debris. She was excited to show it to the council, but the other inventors laughed at her unusual design. Luna wanted to prove that her invention could save the kingdom, but she struggled to convince others to give her a chance.",
+ questions:[
+  {q:"What is Kai's main conflict?",opts:["He cannot build a machine","He is afraid of deep water even though he wants to help","The council refuses to listen to him","He wants to become a ruler"],a:1,why:"Kai's fear is inside him. He wants to help, but his own fear holds him back—an internal conflict.",hint:"Is Kai struggling against something inside himself or against another person?"},
+  {q:"What is Luna's main conflict?",opts:["She is afraid of deep water","She cannot find the underwater bridge","Other inventors doubt her design and refuse to give her a chance","She does not want to help the kingdom"],a:2,why:"Luna faces opposition from other inventors. This is an external conflict involving other people.",hint:"Who or what is making Luna's goal difficult?"},
+  {q:"Which comparison BEST explains both conflicts?",opts:["Both characters face only physical challenges","Kai struggles with an internal fear, while Luna faces external opposition; both must overcome obstacles to reach a goal","Kai and Luna both refuse to help their kingdom","Luna fears the ocean, while Kai must convince the council"],a:1,why:"Kai's obstacle is his own fear; Luna's obstacle is other people's doubt. Both characters want to help but face different barriers.",hint:"Compare the source of each problem: Kai's fear versus the inventors' reaction.",digit:"2"}
+ ]
+},
+{
+ title:"The Depths of Discovery",symbol:"💎",skill:"Making inferences and analyzing character change",
+ passage:"<strong>The Last Pearl</strong><br>Two sea dragons, Orin and Vexa, discovered the last magical pearl in the ocean. Whoever possessed it could control the tides. Orin wanted to return the pearl to the ocean temple, where it belonged. Vexa wanted to keep it so she could become the most powerful dragon in the kingdom. When a powerful storm threatened to destroy their underwater home, Orin realized the pearl could calm the waters. He begged Vexa to help him return it to the temple. At first, Vexa refused. But when she saw the homes of the sea creatures being destroyed, she finally understood that her desire for power was hurting everyone. She helped Orin return the pearl. Together, they saved the kingdom.",
+ questions:[
+  {q:"What can you BEST infer about Orin from his actions?",opts:["He values the safety of the kingdom more than personal power","He wants to control the tides for himself","He is afraid of the other sea creatures","He does not understand what the pearl can do"],a:0,why:"Orin wants to return the pearl to its proper place and use it to protect everyone. His actions suggest he is responsible and selfless.",hint:"What does Orin choose to do with the pearl, and who benefits?"},
+  {q:"How does Vexa change during the story?",opts:["She becomes more determined to keep the pearl","She stops caring about the kingdom","She moves from wanting power for herself to helping protect others","She decides to leave the ocean"],a:2,why:"Vexa begins by wanting power, but seeing the damage changes her priorities and actions.",hint:"Compare what Vexa wants at the beginning with what she chooses at the end."},
+  {q:"Which conclusion BEST explains how Orin and Vexa function differently in the story?",opts:["Orin represents selflessness and helps move the story toward a solution, while Vexa's selfishness creates conflict before her change helps resolve it","Both characters are antagonists because they want the pearl","Vexa is the protagonist because she wants to become powerful","Orin has no influence because Vexa makes the final decision"],a:0,why:"Orin's goal points toward the solution. Vexa's desire for power creates the disagreement, but her change of heart helps resolve the conflict.",hint:"Think about how each character's motivation affects the problem and its solution.",digit:"1"}
+ ]
+}
+];
+let student="",completed=[false,false,false,false],answers={},current=0;
+const $=id=>document.getElementById(id);
+function show(id){["welcome","map","challenge","final"].forEach(x=>$(x).classList.toggle("hidden",x!==id));}
+$("startBtn").addEventListener("click",()=>{student=$("studentName").value.trim()||"Kraken Cadet";$("welcomeName").textContent="Welcome, "+student+"!";renderMap();show("map");});
+$("studentName").addEventListener("keydown",e=>{if(e.key==="Enter")$("startBtn").click();});
+function renderMap(){
+ $("stationGrid").innerHTML="";
+ stations.forEach((s,i)=>{
+  const b=document.createElement("button");b.className="station";b.disabled=i>0&&!completed.slice(0,i).every(Boolean);
+  b.innerHTML=`<span class="symbol">${s.symbol}</span><span><strong>${i+1}. ${s.title}</strong><small>${s.skill}</small></span><span class="status">${completed[i]?"🔓":"🔒"}</span>`;
+  b.addEventListener("click",()=>openStation(i));$("stationGrid").appendChild(b);
+ });
+ const n=completed.filter(Boolean).length;$("progress").style.width=(n/4*100)+"%";$("progressText").textContent=`${n} of 4 challenges complete`;
+ if(n===4){$("map").querySelector(".story").innerHTML="<strong>All four challenges complete!</strong> The treasure chamber is ready. Return to the map and enter the final code.";if(!$("goFinal")){const b=document.createElement("button");b.id="goFinal";b.className="btn gold";b.textContent="GO TO THE TREASURE CHAMBER →";b.style.marginTop="12px";b.onclick=()=>openFinal();$("map").appendChild(b);}}
+}
+function openStation(i){
+ current=i;const s=stations[i];$("stationKicker").textContent="CHALLENGE "+(i+1);$("stationTitle").textContent=s.title;$("stationSkill").textContent=s.skill;$("stationCount").textContent=(i+1)+" OF 4";$("passage").innerHTML=s.passage;$("questions").innerHTML="";$("unlockMessage").classList.add("hidden");$("stationResult").textContent="";
+ s.questions.forEach((q,qi)=>{
+  const card=document.createElement("div");card.className="qcard";
+  const qnum=document.createElement("div");qnum.className="qnum";qnum.textContent="QUESTION "+(qi+1)+" OF 3";
+  const question=document.createElement("div");question.className="question";question.textContent=q.q;
+  const opts=document.createElement("div");opts.className="options";
+  const fb=document.createElement("div");fb.className="feedback";fb.setAttribute("aria-live","polite");
+  const hint=document.createElement("div");hint.className="hint hidden";hint.textContent="HINT: "+q.hint;
+  q.opts.forEach((op,oi)=>{const btn=document.createElement("button");btn.className="option";btn.textContent=String.fromCharCode(65+oi)+". "+op;btn.addEventListener("click",()=>{
+   if(answers[i+"-"+qi]===q.a)return;
+   [...opts.children].forEach(x=>x.classList.remove("selected","correct","wrong"));
+   if(oi===q.a){btn.classList.add("correct");answers[i+"-"+qi]=q.a;fb.className="feedback good";fb.textContent="✓ Correct! "+q.why;}
+   else{btn.classList.add("wrong");fb.className="feedback bad";fb.textContent="Not quite. Reread the passage and try another answer.";}
+   updateStationStatus();
+  });opts.appendChild(btn);});
+  const hintBtn=document.createElement("button");hintBtn.className="btn secondary";hintBtn.style.marginTop="10px";hintBtn.style.padding="8px 12px";hintBtn.textContent="Need a hint?";hintBtn.addEventListener("click",()=>hint.classList.toggle("hidden"));
+  card.append(qnum,question,opts,fb,hintBtn,hint);$("questions").appendChild(card);
+  if(answers[i+"-"+qi]!==undefined){const b=opts.children[answers[i+"-"+qi]];b.classList.add("correct");fb.className="feedback good";fb.textContent="✓ Correct! "+q.why;}
+ });
+ updateStationStatus();$("finishStation").onclick=()=>{completed[i]=true;$("unlockMessage").classList.remove("hidden");$("unlockMessage").innerHTML=`🔓 Challenge complete! Your secret digit is <strong>${s.questions[2].digit}</strong>. Remember it: digit ${i+1} of your final code.`;$("finishStation").disabled=true;$("stationResult").textContent="Digit collected: "+s.questions[2].digit;};
+ show("challenge");
+}
+function updateStationStatus(){const count=stations[current].questions.filter((q,qi)=>answers[current+"-"+qi]!==undefined).length;$("stationResult").textContent=count+" of 3 questions correct";$("finishStation").disabled=count!==3||completed[current];if(completed[current]){$("finishStation").disabled=true;$("stationResult").textContent="Challenge already completed";$("unlockMessage").classList.remove("hidden");$("unlockMessage").innerHTML=`🔓 You already collected digit <strong>${stations[current].questions[2].digit}</strong> from this challenge.`;}}
+$("backMap").onclick=()=>{renderMap();show("map");};
+function openFinal(){$("codeBoxes").innerHTML=stations.map(s=>`<div class="digit">${completed[stations.indexOf(s)]?s.questions[2].digit:"?"}</div>`).join("");$("finalCode").value="";$("finalFeedback").textContent="";$("victory").classList.add("hidden");show("final");}
+$("goFinal")?.addEventListener("click",openFinal);
+$("finalMap").onclick=()=>{renderMap();show("map");};
+$("unlockBtn").onclick=()=>{
+ const correct=stations.map(s=>s.questions[2].digit).join("");
+ if($("finalCode").value.trim()===correct){$("finalFeedback").textContent="";$("victory").classList.remove("hidden");$("winnerName").textContent=student;$("certName").textContent=student;}
+ else{$("finalFeedback").textContent="That code doesn't open the chamber yet. Check your four digits and try again!";$("finalFeedback").style.color="#ffd66b";}
+};
+$("finalCode").addEventListener("keydown",e=>{if(e.key==="Enter")$("unlockBtn").click();});
+$("certificateBtn").onclick=()=>{$("certificate").classList.toggle("hidden");};
+</script>
+</body>
+</html>
